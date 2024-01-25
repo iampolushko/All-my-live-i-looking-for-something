@@ -33,13 +33,23 @@ some:
     text:Some text
 ```
 
+## Lombok
+
+https://youtu.be/QmsMWCIf3nc?si=JqLH9IEQRdCITMGm
+
 #### Annotations
 
 bean - is any class what controlle by container spring.
 Whet Spring starts it load all components in them context.
 Components in any object what have any annotation(configuration, component, bean, controller, service, repository)
 
-### angular
+###### Annotation what you real will use.
+
+- @Controller - manage the incoming http requests
+- @ResponseBody - дает фреймворку понять, что объект, который вы вернули из метода надо прогнать через HttpMessageConverter, чтобы получить готовое к отправке на клиент представление.
+- @RestController - is @Controller + @ResponseBody. It is mark class as Spring MVC controller and automaticly convert returned data to json or xml
+
+## Angular
 
 Big framework
 [All facts](https://habr.com/ru/companies/otus/articles/746076/)
