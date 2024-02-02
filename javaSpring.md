@@ -48,6 +48,9 @@ Components in any object what have any annotation(configuration, component, bean
 - @Controller - manage the incoming http requests
 - @ResponseBody - дает фреймворку понять, что объект, который вы вернули из метода надо прогнать через HttpMessageConverter, чтобы получить готовое к отправке на клиент представление.
 - @RestController - is @Controller + @ResponseBody. It is mark class as Spring MVC controller and automaticly convert returned data to json or xml
+- @Component - it is marks means as Spring componets
+- @Service - meta assosiated with @Component(It is just a special case for @Component). It is indicate what the class holding the buisness logic.
+- @Repository - meta assosiated with @Component. For cath specific exeptions and retrow them to Spring unifiend and uncheck exeptions
 
 ## Angular
 
