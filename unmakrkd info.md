@@ -20,3 +20,5 @@ query params - is params what program got from searching line after "?"
 
 cookie - is just a references inside the browser(Every user can check it)
 session - is one ref in browser what contains the sesseion idetifier. All session is on server. It is removed after a few minutes (15)
+
+https://youtu.be/5fzX70ODuoI?si=GmuHlQThLWvCcA8N
