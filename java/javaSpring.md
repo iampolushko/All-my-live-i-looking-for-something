@@ -1,4 +1,4 @@
-# Spring
+# Spring:
 
 [Spring project template builder](https://start.spring.io/). You can also use build in inteliga pro functional but you doesn't have money for inteliga pro or just make the intliga project and follow the instruction in the docs.
 [Best guide](https://www.youtube.com/watch?v=fL5NDw0rDOI)
@@ -6,7 +6,7 @@
 #### App layers
 
 - API Layer (GET, POST, PUT, DELETE)
-- Servide layer
+- Serviсe layer
 - Data access layer
 - Data base(another app)
 
@@ -40,17 +40,45 @@ some:
     text:Some text
 ```
 
-## Lombok
+Spring have a lot of included frameworks(like Security, JPA, MVC)
 
-https://youtu.be/QmsMWCIf3nc?si=JqLH9IEQRdCITMGm
+# Important dependencies (frameworks?):
 
-#### Annotations
+- ## Spring web
 
-bean - is any class what controlle by container spring.
-Whet Spring starts it load all components in them context.
-Components is any object what have any annotation(configuration, component, bean, controller, service, repository)
+  Restful API
+  Для создания контроллеров запросов
+  Tomcat
 
-###### Annotation what you real will use.
+- ## Thymeleaf
+
+  Tichicaly it is a interlayer betwen java backand and html (way to connect backend and frontend)
+  Logic inside the html documents
+  https://www.youtube.com/watch?v=nyQx6jqnsZg
+
+  ##### Different types of vars
+
+  ${param} - take on or paste in data in page
+  @{/path/style.css} - link type(any files, photo too). HTML engine can not see the files inside the "static", becouse it's have self orient file system.
+  \*{param.lengh} - util var. Ucan use normal java String methods in html
+
+  ##### How to use vars?
+
+  ```html
+
+  ```
+
+- ## Lombok
+
+  https://youtu.be/QmsMWCIf3nc?si=JqLH9IEQRdCITMGm
+
+  #### Annotations
+
+  bean - is any class what controlle by container spring.
+  Whet Spring starts it load all components in them context.
+  Components is any object what have any annotation(configuration, component, bean, controller, service, repository)
+
+  ###### Annotation what you real will use.
 
 - @Controller - manage the incoming http requests
 - @ResponseBody - дает фреймворку понять, что объект, который вы вернули из метода надо прогнать через HttpMessageConverter, чтобы получить готовое к отправке на клиент представление.
@@ -60,6 +88,8 @@ Components is any object what have any annotation(configuration, component, bean
 - @Service - meta assosiated with @Component(It is just a special case for @Component). It is indicate what the class holding the buisness logic.
 - @Repository - meta assosiated with @Component. For cath specific exeptions and retrow them to Spring unifiend and uncheck exeptions
 
+# Unmarked info:
+
 ## Angular
 
 Big framework
@@ -67,6 +97,7 @@ Big framework
 
 ## Data base connection
 
+It id from jpa or mysql-connector-j or spring-boot-starter-data-jpa dependencies
 Dont forget add to pom mysql(for working with db) adn jpa(for automise table instanse making) dependensys
 Application.yml(.properties) file:
 
@@ -88,4 +119,49 @@ spring:
 
 [JPA Entity](https://www.youtube.com/watch?v=_mDKqZO9FzI) - u can make class(entity) from sql table
 
-##Post and Get
+## Get and Post
+
+- #### Get
+  We have 2 way to get arguments from get request. Difficult and complex or easy and accurate:
+- Difficult
+  This method is geting access to all request info
+  If u dont add params it print null null
+
+```java
+    @GetMapping("/test")
+    public String returnName(HttpServletRequest request) {
+        //Taking params from request
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        //just test output
+        System.out.println(name + " "+ surname);
+        //U need to return html page frome where get the request params
+        return "src/main/resources/static/product.html";
+    }
+```
+
+- Easy
+  This method doesnt take all request. It takes only parameters.
+  <text style="color: rgba(255, 0, 0, 1);">If u dont add the params it dont find the page</text>
+  if u wanna make possible print null null just add the "required=false" as @RequestParam argument
+
+```java
+    @GetMapping("/test")
+    public String returnName(@RequestParam("name") String name,
+                              @RequestParam("surname") String surname) {
+        System.out.println(name + " "+ surname);
+        return "src/main/resources/static/product.html";
+    }
+```
+
+Request text
+
+```URL
+http://localhost:8080/test?name=oleg&surname=danov
+```
+
+Console normal output
+
+```
+oleg danov
+```

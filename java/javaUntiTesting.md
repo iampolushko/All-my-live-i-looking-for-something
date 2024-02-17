@@ -1,0 +1,3 @@
+- Unit test - it is test what making by software ingeneer. The lowes level testing(classes and methods)
+- integration testing - test of different modules.
+- system testing - making by testers

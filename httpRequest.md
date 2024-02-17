@@ -27,7 +27,7 @@ http request structure:
 - #### GET
 
   - idempotent (don't change nothing on server). In the most cases work for follow to link, request in google
-  - His body always empty but if we need to send it we just can add it directly in URL after "?" and devide by "&" like:
+  - His body always empty but if we need to send params we just can add it directly in URL after "?" and devide by "&" like:
     https://vk.com/audios6666?first=1&second=2
 
   * Body ALWAYS empty. It is means what user always see the params in URL

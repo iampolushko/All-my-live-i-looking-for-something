@@ -114,6 +114,8 @@ spring:
 
 - entity
 - repository
+- service
+- controller
 
 - ### Entity
 
