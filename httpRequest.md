@@ -67,3 +67,6 @@ Headers:
 - 3xx - redirect
 - 4xx - client error
 - 5xx - server error
+
+- ### Unmarked info
+- 127.0.0.0/8 - requesting to this addres wil be sending directly on sendler pc.
