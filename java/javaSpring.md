@@ -329,11 +329,49 @@ spring:
 
 [JPA Entity](https://www.youtube.com/watch?v=_mDKqZO9FzI) - u can make class(entity) from sql table
 
-## Unmarked info and questions
+## Get and Post
 
-In class controller you should use the annotation @Controller if u wann return page. For what @RestController exists?
+- #### Get
+  We have 2 way to get arguments from get request. Difficult and complex or easy and accurate:
+- Difficult
+  This method is geting access to all request info
+  If u dont add params it print null null
 
-### Interesting facts:
+```java
+    @GetMapping("/test")
+    public String returnName(HttpServletRequest request) {
+        //Taking params from request
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        //just test output
+        System.out.println(name + " "+ surname);
+        //U need to return html page frome where get the request params
+        return "src/main/resources/static/product.html";
+    }
+```
 
-Spring boot по умолчанию использует web server appache tomcat
-https://ru.stackoverflow.com/questions/1211649/thymeleaf-%D0%BD%D0%B5-%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82-css-%D1%84%D0%B0%D0%B9%D0%BB
+- Easy
+  This method doesnt take all request. It takes only parameters.
+  <text style="color: rgba(255, 0, 0, 1);">If u dont add the params it dont find the page</text>
+  if u wanna make possible print null null just add the "required=false" as @RequestParam argument
+
+```java
+    @GetMapping("/test")
+    public String returnName(@RequestParam("name") String name,
+                              @RequestParam("surname") String surname) {
+        System.out.println(name + " "+ surname);
+        return "src/main/resources/static/product.html";
+    }
+```
+
+Request text
+
+```URL
+http://localhost:8080/test?name=oleg&surname=danov
+```
+
+Console normal output
+
+```
+oleg danov
+```
