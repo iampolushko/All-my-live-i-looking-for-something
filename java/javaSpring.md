@@ -52,8 +52,8 @@ Spring have a lot of included frameworks(like Security, JPA, MVC)
 
 - ## Thymeleaf
 
-  Tichicaly it is a interlayer betwen java backand and html (way to connect backend and frontend)
-  Logic inside the html documents
+  Tichicaly it is a interlayer betwen java backand and html (way to connect backend and frontend). Шаблонизатор.
+  It is make a logic inside the html documents
   https://www.youtube.com/watch?v=nyQx6jqnsZg
 
   ##### Different types of vars
@@ -84,7 +84,8 @@ Spring have a lot of included frameworks(like Security, JPA, MVC)
 - @ResponseBody - дает фреймворку понять, что объект, который вы вернули из метода надо прогнать через HttpMessageConverter, чтобы получить готовое к отправке на клиент представление.
 - @RestController - is @Controller + @ResponseBody. It is mark class as Spring MVC controller and automaticly convert returned data to json or xml
   - @GetMapping - mark method
-- @Component - it is marks means as Spring componets
+- @Bean -
+- @Component - it is marks means as Spring componets. @Bean variation
 - @Service - meta assosiated with @Component(It is just a special case for @Component). It is indicate what the class holding the buisness logic.
 - @Repository - meta assosiated with @Component. For cath specific exeptions and retrow them to Spring unifiend and uncheck exeptions
 
@@ -165,3 +166,12 @@ Console normal output
 ```
 oleg danov
 ```
+
+## Unmarked info and questions
+
+In class controller you should use the annotation @Controller if u wann return page. For what @RestController exists?
+
+### Interesting facts:
+
+Spring boot по умолчанию использует web server appache tomcat
+https://ru.stackoverflow.com/questions/1211649/thymeleaf-%D0%BD%D0%B5-%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82-css-%D1%84%D0%B0%D0%B9%D0%BB
