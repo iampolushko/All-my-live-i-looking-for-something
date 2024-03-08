@@ -68,5 +68,16 @@ Headers:
 - 4xx - client error
 - 5xx - server error
 
+### Process of client and server communication
+
+#### Sessions
+
+Stateful. Server generate the id and send it to the user. User save the id in cookie and use it with standart http.
+
+#### Tokens
+
+Server generate the token while every operation.
+jwt token
+
 - ### Unmarked info
 - 127.0.0.0/8 - requesting to this addres wil be sending directly on sendler pc.
