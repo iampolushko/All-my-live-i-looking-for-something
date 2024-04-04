@@ -1,4 +1,6 @@
-###Make some preferences
+# Show Something From DB in Spring
+
+### Make some preferences
 
 - ### pom.xml
   we add all version dependencies and plugins info for build here

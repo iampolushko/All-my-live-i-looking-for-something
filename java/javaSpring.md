@@ -16,6 +16,13 @@
 
 #### Structure
 
+#### Spring mvc
+
+Схема проектирования
+model - view - controller
+controller - works for listening the url. Working with user.
+model - work with data base.
+
 pom - project object manager. It is control the project
 
 parent - обозначает наследование. If we delete the parent, we will need to add parent link in every dependency.
@@ -141,6 +148,9 @@ oleg danov
 - @Component - it is marks means as Spring componets. @Bean variation
 - @Service - meta assosiated with @Component(It is just a special case for @Component). It is indicate what the class holding the buisness logic.
 - @Repository - meta assosiated with @Component. For cath specific exeptions and retrow them to Spring unifiend and uncheck exeptions
+
+* ## spring-boot-devtools
+  making the local server
 
 # Unmarked info:
 

@@ -26,6 +26,13 @@ for safety build and rebuild docs
 mvn clean compile assembly:single
 ```
 
+for build the jar file
+
+```
+java -jar artifact-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+
+```
+
 ## important fckng facts
 
 - if u wanna use any fckn file (sqlite too) u should add it in resource folder
