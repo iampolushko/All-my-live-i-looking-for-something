@@ -100,45 +100,125 @@ oleg danov
 
 # Important dependencies (frameworks?):
 
-- ## Spring web
+## 1 - Spring web
 
-  Restful API
-  Для создания контроллеров запросов
-  Tomcat
+Restful API
+Для создания контроллеров запросов
+Tomcat
 
-- ## Thymeleaf
+## 2 - Thymeleaf
 
-  Tichicaly it is a interlayer betwen java backand and html (way to connect backend and frontend). Шаблонизатор.
-  It is make a logic inside the html documents
-  https://www.youtube.com/watch?v=nyQx6jqnsZg
+Tichicaly it is a interlayer betwen java backand and html (way to connect backend and frontend). Шаблонизатор.
+It is make a logic inside the html documents
+https://www.youtube.com/watch?v=nyQx6jqnsZg
 
-  ##### Different types of vars
+##### Different types of vars
 
-  ${param} - take on or paste in data in page
-  @{/path/style.css} - link type(any files, photo too). HTML engine can not see the files inside the "static", becouse it's have self orient file system.
-  \*{param.lengh} - util var. Ucan use normal java String methods in html
+${param} - take on or paste in data in page
+@{/path/style.css} - link type(any files, photo too). HTML engine can not see the files inside the "static", becouse it's have self orient file system.
+\*{param.lengh} - util var. Ucan use normal java String methods in html
 
-  ##### How to use vars?
+##### How to use vars?
 
-  ```html
+When you opening the html tag put this link inside of it
 
-  ```
+```html
+<html xmlns:th="http://www.thymeleaf.org"></html>
+```
 
-- ## springframework.security
+If u need to show java ref in html
 
-  Hui
+```java
+  @GetMapping("/catalog") // just part of the link
+  public String pageForAll(Model model) {
+      String penis = "pe pe pe penis";
+      model.addAttribute("penis", penis);
+      return "pages/catalog"; // html adres from repository
+  }
+```
 
-- ## Lombok
+```html
+<h1 th:text="penis"></h1>
+```
 
-  https://youtu.be/QmsMWCIf3nc?si=JqLH9IEQRdCITMGm
+if you need the cycle:
 
-  #### Annotations
+```java
+  @GetMapping("/catalog")
+  public String pageForAll(Model model) {
+      ArrayList<String> numbers = new ArrayList<>();
+      numbers.add("1");
+      numbers.add("2");
+      model.addAttribute("numbers", numbers);
+      return "pages/catalog";
+  }
+```
 
-  bean - is any class what controlle by container spring.
-  Whet Spring starts it load all components in them context.
-  Components is any object what have any annotation(configuration, component, bean, controller, service, repository)
+```html
+<div th:each="number : ${numbers}">
+  <h1 th:text="${number}"></h1>
+</div>
+```
 
-  #### Annotation what you real will use(fundamental spring annotations).
+For insert the html blocks:
+Put the 'part' block inside of 'div' with "th:fragment" tag
+
+```html
+<div th:fragment="header"><div></div></div>
+```
+
+and add the link in th:insert
+
+```html
+<div th:insert="blocks/header :: header"></div>
+<!--blocks - repository name, header - file name, header after :: - is a th:fragment = "header"-->
+```
+
+## 2 - springframework.security
+
+### unmarked info
+
+- ### important tip!
+
+if u have problem with access to resourses from **static** folder firstly check the links in html.
+It is should be looks like that:
+
+```html
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<img th:src="@{/images/user.svg}" alt="user" />
+```
+
+After that in class **SecurityConfig** create this method:
+
+```java
+    @Bean
+    WebSecurityCustomizer configureWebSecurity() throws Exception{
+        return (web) -> web.ignoring().requestMatchers("/images/**", "/css/**");
+    }
+```
+
+Holy moly! It is would bee works.
+BUT!
+The indial comrat from [this video ](https://www.youtube.com/watch?v=6gswFeWXvF8&) that this way is not to great and we should use the:
+
+```java
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests(auth -> auth.requestMatchers("/images/**", "/css/**").permitAll());
+    }
+```
+
+## 3 - Lombok
+
+https://youtu.be/QmsMWCIf3nc?si=JqLH9IEQRdCITMGm
+
+#### Annotations
+
+bean - is any class what controlle by container spring.
+Whet Spring starts it load all components in them context.
+Components is any object what have any annotation(configuration, component, bean, controller, service, repository)
+
+#### Annotation what you real will use(fundamental spring annotations).
 
 - @Controller - manage the incoming http requests
 - @ResponseBody - дает фреймворку понять, что объект, который вы вернули из метода надо прогнать через HttpMessageConverter, чтобы получить готовое к отправке на клиент представление.
@@ -149,8 +229,19 @@ oleg danov
 - @Service - meta assosiated with @Component(It is just a special case for @Component). It is indicate what the class holding the buisness logic.
 - @Repository - meta assosiated with @Component. For cath specific exeptions and retrow them to Spring unifiend and uncheck exeptions
 
-* ## spring-boot-devtools
-  making the local server
+## 4 - spring-boot-devtools
+
+making the local server
+
+# Build and depoloing
+
+- ### Second properties file
+  U can create copy of **application.properties** what called the **application-dev.properties** and edit the configuration in u IDE.
+  In **edit configuration** page in field **program arguments** put this:
+
+```
+--spring.profiles.active=dev
+```
 
 # Unmarked info:
 
