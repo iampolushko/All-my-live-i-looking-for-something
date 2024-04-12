@@ -199,7 +199,7 @@ After that in class **SecurityConfig** create this method:
 
 Holy moly! It is would bee works.
 BUT!
-The indial comrat from [this video ](https://www.youtube.com/watch?v=6gswFeWXvF8&) that this way is not to great and we should use the:
+The indial comrat from [this video ](https://www.youtube.com/watch?v=6gswFeWXvF8&)sad what that this way is not great and we should use the:
 
 ```java
     @Bean
