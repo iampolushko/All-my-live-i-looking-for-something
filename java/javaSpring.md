@@ -126,7 +126,7 @@ When you opening the html tag put this link inside of it
 <html xmlns:th="http://www.thymeleaf.org"></html>
 ```
 
-If u need to show java ref in html
+**If u need to show java ref in html**
 
 ```java
   @GetMapping("/catalog") // just part of the link
@@ -141,7 +141,7 @@ If u need to show java ref in html
 <h1 th:text="penis"></h1>
 ```
 
-if you need the cycle:
+**if you need the cycle:**
 
 ```java
   @GetMapping("/catalog")
@@ -160,7 +160,7 @@ if you need the cycle:
 </div>
 ```
 
-For insert the html blocks:
+**For insert the html blocks:**
 Put the 'part' block inside of 'div' with "th:fragment" tag
 
 ```html
@@ -173,6 +173,44 @@ and add the link in th:insert
 <div th:insert="blocks/header :: header"></div>
 <!--blocks - repository name, header - file name, header after :: - is a th:fragment = "header"-->
 ```
+
+**If you want to add the css class by java code use this:**
+Add the boolean refs to model
+
+```java
+    @GetMapping("/adminCabinetEdit")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public String pageForAdminCabinetEdit(Model model) {
+        model.addAttribute("first", Boolean.FALSE); //reference name and boolean value
+        model.addAttribute("second", Boolean.TRUE);
+        model.addAttribute("third", Boolean.FALSE);
+        return "adminCabinetEdit";
+    }
+```
+
+Create this construction in html with thymleaf.
+
+```html
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" th:classappend="${first} ? active : nothing" href="#"
+      >Текст</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" th:classappend="${second} ? active : nothing" href="#"
+      >Тоже текст</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" th:classappend="${third} ? active : nothing" href="#"
+      >Святые угодники! Текст!</a
+    >
+  </li>
+</ul>
+```
+
+'active' and 'nothing' is user made css classes.
 
 ## 2 - springframework.security
 

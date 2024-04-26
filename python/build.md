@@ -3,7 +3,7 @@
 ```bash
 pip install pyinstaller
 
-pyinstaller -F main.py
+pyinstaller -F -w main.py
 ```
 
 U can use a lot of tags and mix it.

@@ -30,7 +30,6 @@ for build the jar file
 
 ```
 java -jar artifact-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-
 ```
 
 ## important fckng facts
