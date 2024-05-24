@@ -49,6 +49,9 @@ some:
 
 Spring have a lot of included frameworks(like Security, JPA, MVC)
 
+#### Annotations
+
+Основная задача аннотации - идентифицировать класс как компонент, доступных механизму сканирования в Spring.
 @Service - is a local case of @Component
 
 ### Get and Post
@@ -270,6 +273,20 @@ Components is any object what have any annotation(configuration, component, bean
 ## 4 - spring-boot-devtools
 
 making the local server
+
+## 5 - pring Integration
+
+Real time app integration
+
+## 6 - Spring Batch
+
+package integration
+
+## 7 - Spring Cloud
+
+Microservices
+Cloud Native Spring in Action» То-
+маса Витале
 
 # Build and depoloing
 

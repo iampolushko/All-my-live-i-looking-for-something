@@ -112,7 +112,7 @@ spring:
 
 ### Make java classes
 
-#####Create Repositories in java.com.projectName
+##### Create Repositories in java.com.projectName
 
 - entity
 - repository
@@ -219,6 +219,24 @@ public class StudentController {
     @GetMapping("/getStudents") //make get request
     public List<StudentEntity> getDetails() {
         return studentService.getAllDetails();
+    }
+}
+```
+
+Don't forget what you have the Application class(here no user moves. I add this just to explain hows it's works)
+
+```java
+package com.example.elembase;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+@SpringBootApplication //contains 3 annotations insid
+//1 - @SpringBootConfiguration - just a special form of @Configuration but without any configuration parameters(you can add just a few)
+//2 - @EnableAutoConfiguration - spring auto confugurate all components
+//3 - @ComponentScan - add possability to add annotations for all classes
+public class ElemBaseApplication{
+    public static void main(String[] args) {
+        SpringApplication.run(ElemBaseApplication.class, args);
     }
 }
 ```

@@ -13,6 +13,42 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
+## After extend the disk space in ProxMox
+
+df -h
+or
+vgdisplay
+info about the hard drives
+
+For extend the disk with space what you add in ProxMox
+
+1. type this command
+
+   ```
+   cf - disk
+   ```
+
+2. Point your main disk(sda3 or just the biggest one) and choose **resize** punct on botton panel
+3. Point the extended disk and choose **write** punct on botton panel
+4. type this command but for disk what ws extended(don't change it if you extend sda3). This command is made for extend the partition
+
+   ```
+   pvresize /dev/sda3
+   ```
+
+5) type this command for extend the volume
+   ```
+   lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+   ```
+6) type this for resize Root File System
+   ```
+   resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+   ```
+7) Confirm Changes
+   ```
+   df-h
+   ```
+
 # Just usefull commands
 
 #### Show usb devices

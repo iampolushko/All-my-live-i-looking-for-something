@@ -243,6 +243,7 @@ public class MyUserDetailService implements UserDetailsService {
 ```
 
 - ### SecurityConfig
+  Here we use the requestMatchers, but u can use [antMatchers](https://youtu.be/q3gT4198RKU?si=s_TGjmPDXnbr9-wA) and mvcMatchers
 
 ```java
 package com.example.elembase.configs;
