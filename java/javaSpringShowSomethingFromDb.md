@@ -1,4 +1,4 @@
-# Show Something From DB in Spring
+# Show Something From DB in Spring mvc
 
 ### Make some preferences
 
