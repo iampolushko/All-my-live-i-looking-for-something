@@ -127,6 +127,7 @@ public class Product {
 ```
 
 - ##### repository
+  jpa - it is literaly hibernate
 
 ```java
 package com.example.resttest.repository;
@@ -196,6 +197,7 @@ public class ProductDTO {
 ```
 
 - ##### controller
+  Rest controller differ for controller becouse it have the Response Body and it return the Json instead of html.
 
 ```java
 package com.example.resttest.controller;
