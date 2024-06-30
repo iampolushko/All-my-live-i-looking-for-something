@@ -1,9 +1,3 @@
-#### Qt Ui gide
-
-- For add the new window.cpp and window.ui we need to click on project folder and choose "add new" => choose the "qt" in "files and classes" list and "qt designer form class" in central list => follow the app instructions
-
-- For create new "button clicked" in window.cpp function you need to open ui file in designer => add the button => click on it => click on "Go to slot" => choose "clicked".
-
 #### Всплывающие окна
 
 - Just a massage
@@ -43,6 +37,66 @@
 
 #### Переход на другую страницу
 
-```c++
+В файл .h на странице, с которой будем переходить
 
+```c++
+#include "SecondWindow.h"
+
+private:
+    Ui::MainWindow *ui;
+    SecondWindow *window;
+```
+
+Для свершения перехода в файле .cpp на странице, с которой будем переходить
+
+```c++
+    window = new InfoWindow(this);
+    window->show();
+```
+
+Если нам нужно закрыть или скрыть окно
+
+```c++
+    this->close();
+    this->hide();
+```
+
+#### Подключение к sqlite
+
+В файле .pro добавляем sql в этой строчке через пробел
+
+```c++
+QT       += core gui sql
+```
+
+В файле .h добавляем зависимости
+
+```c++
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlTableModel>
+#include <QSqlError>
+```
+
+В файле .cpp
+
+```c++
+db = QSqlDatabase::addDatabase("QSQLITE");
+db.setDatabaseName("D:/All_projects/qtProjects/userdata.db");
+
+ if (db.open())
+    {
+        QSqlQuery query = QSqlQuery(db);
+        query.exec("SELECT * FROM users");
+        while (query.next()) {
+            QString lastname = query.value(0).toString(); // В value находиться номер стобца
+            qDebug() << lastname;
+        }
+
+        ui->statusbar->showMessage("Успешное подключение к бд");
+    }
+    else
+    {
+        ui->statusbar->showMessage("Ошибка при подключении к бд: " + db.lastError().databaseText());
+    }
 ```

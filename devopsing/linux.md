@@ -70,3 +70,15 @@ Make user access for folder in admin directory.($USER — reference of user)
 ```
 sudo chown -R $USER:$USER /var/www/your_domain
 ```
+
+For check app status
+
+```
+sudo systemctl status 'service name'
+```
+
+For start the stopped app
+
+```
+sudo systemctl start 'service name'
+```
