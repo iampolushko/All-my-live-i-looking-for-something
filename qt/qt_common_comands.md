@@ -100,3 +100,42 @@ db.setDatabaseName("D:/All_projects/qtProjects/userdata.db");
         ui->statusbar->showMessage("Ошибка при подключении к бд: " + db.lastError().databaseText());
     }
 ```
+
+#### Получение данных по https
+
+```c++
+QT       += core gui network
+```
+
+```c++
+#include <QtNetwork>
+#include <QtGui>
+#include <QtCore>
+```
+
+```c++
+ ui->setupUi(this);
+
+    QNetworkAccessManager Manager;
+
+    QUrl APIurl("https://api.country.is/9.9.9.9");
+
+    QNetworkRequest request(APIurl);
+
+    QNetworkReply *reply = Manager.get(request);
+
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    if(reply->error() == QNetworkReply::NoError)
+    {
+        qDebug() << "Error : " << reply->errorString();
+        QString Response = reply->readAll();
+        qDebug() << "API Response : " << Response;
+    }
+    else
+    {
+        qDebug() << "Error : " << reply->errorString();
+    }
+```

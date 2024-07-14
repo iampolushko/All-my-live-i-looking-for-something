@@ -1,6 +1,6 @@
 # C
 
-### Facts
+#### Facts
 
 CERT recomendations - recomendations to make code more safety
 
@@ -15,9 +15,9 @@ comptilation arguments:
 
 "#include" - preprpcessor directive
 
-#### User input
+#### Use function from stdio.h library
 
-Use function from stdio.h library
+##### User input
 
 ```c
 scanf_s("%d", &number); // _s - means safety(it don't work withou that)
@@ -26,7 +26,7 @@ scanf_s("%d", &number); // _s - means safety(it don't work withou that)
 **first argument** is a string with: **%** - just special symbol, **d** - deciminal integer
 **second argument** is a reference in that we wil put the user input. **&** - take addres operator, it is says to function where the reference.
 
-### Console output
+##### Console output
 
 ```
 printf("You write a %d\n", number);

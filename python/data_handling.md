@@ -36,3 +36,13 @@ print(c.fetchone()) #get line
 
 db.close()
 ```
+
+## tips
+
+- Получить уникальные значения массива
+
+```python
+fruits = ['яблоко', 'груша', 'банан', 'яблоко', 'груша', 'яблоко']
+unique_fruits = list(set(fruits)) //set() возвращает словарь, но в целом его в list можно и не преобразововать
+print(unique_fruits)
+```

@@ -26,3 +26,7 @@ p.s. last
 - For add the new window.cpp and window.ui we need to click on project folder and choose "add new" => choose the "qt" in "files and classes" list and "qt designer form class" in central list => follow the app instructions
 
 - For create new "button clicked" in window.cpp function you need to open ui file in designer => add the button => click on it => click on "Go to slot" => choose "clicked".
+
+#### Tips
+
+Check that: https://habr.com/ru/articles/270649/
