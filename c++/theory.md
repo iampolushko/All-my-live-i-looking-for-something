@@ -94,3 +94,33 @@ int main(void)
 **isdigit()** - returns true if arguments is number,
 **isspace()** - true if arguments is space
 **ispunct()** - true if dot?
+
+### Array of strings
+
+```c++
+char number[2][4] = {"one", "two"};
+```
+
+### Массивы
+
+```c++
+
+```
+
+### Указатели
+
+```c++
+	int int_reference = 3200; //просто переменная типа int
+	int* int_reference_address = &int_reference; //получаем адрес переменной
+	int int_reference_by_address = *int_reference_address; //получаем значение переменной по адресу
+
+	std::cout << "Balance address is:" << int_reference_address << '\n';
+	std::cout << "Balance by address:" << int_reference_by_address << '\n';
+
+	*int_reference_address = 10;
+	std::cout << "Balance with new value by address:" << *int_reference_address << '\n';
+
+	(*int_reference_address)++;
+	std::cout << "Incremented balance by address:" << *int_reference_address << '\n';
+
+```

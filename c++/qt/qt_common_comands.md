@@ -78,6 +78,15 @@ QT       += core gui sql
 #include <QSqlError>
 ```
 
+и делаем объект класса QSqlDatabase членом класса основной формы
+
+```c++
+private:
+    Ui::NoteWindow *ui;
+    QSqlDatabase db;
+};
+```
+
 В файле .cpp
 
 ```c++
