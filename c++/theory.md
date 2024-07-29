@@ -101,12 +101,6 @@ int main(void)
 char number[2][4] = {"one", "two"};
 ```
 
-### Массивы
-
-```c++
-
-```
-
 ### Указатели
 
 ```c++
@@ -114,13 +108,72 @@ char number[2][4] = {"one", "two"};
 	int* int_reference_address = &int_reference; //получаем адрес переменной
 	int int_reference_by_address = *int_reference_address; //получаем значение переменной по адресу
 
-	std::cout << "Balance address is:" << int_reference_address << '\n';
-	std::cout << "Balance by address:" << int_reference_by_address << '\n';
+	std::cout << "Balance address is:" << int_reference_address << '\n'; //0000009B9E37F784
+	std::cout << "Balance by address:" << int_reference_by_address << '\n'; //3200
 
 	*int_reference_address = 10;
-	std::cout << "Balance with new value by address:" << *int_reference_address << '\n';
+	std::cout << "Balance with new value by address:" << *int_reference_address << '\n'; //10
 
 	(*int_reference_address)++;
-	std::cout << "Incremented balance by address:" << *int_reference_address << '\n';
-
+	std::cout << "Incremented balance by address:" << *int_reference_address << '\n'; //11
 ```
+
+- имя массива является **указателем** на первый элемент этого массива.
+  т.е. в коде ниже обе записи эквивалентны
+
+  ```c++
+  	int ar[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  	//вывод всех записей
+  	for (int i = 0; i < std::size(ar); i++) {
+  		std::cout << ar[i] << " "; // обращение по индексу
+  		std::cout << *(ar + i) << " "; // обращение по указателю
+  	}
+  ```
+
+  p.s. Имя массива - это константный указатель, т.е. ++ или -- применять к нему нельзя
+
+* #### Создание переменных бывает статическим и динамическим(с динамическим выделением памяти)
+
+```c++
+	//Статическое
+	int i;
+	//Динамическое
+	int* ptr = new int;
+```
+
+- Рассмотрим работу с динамическими переменными
+
+  ```c++
+  	//Создание
+  	int* ptr = new int;
+  	//Работа
+  	*ptr = 10;
+  	std::cout << *ptr;
+  	//Удаление из памяти
+  	delete ptr;
+  ```
+
+- Рассмотрим работу с динамическими массивами
+
+  ```c++
+  //Массив можно объявить одним из способов
+  int* ar = new int[5];
+  int* ar = new int[5] {1, 2, 3, 4, 5};
+  ```
+
+  Прмер программы
+
+  ```c++
+  	//создаём массив
+  	int* ar = new int[10];
+  	//заполняем его значениями
+  	for (int i = 0; i < 10; i++) {
+  		ar[i] = i;
+  	}
+  	//выводим значения
+  	for (int i = 0; i < 10; i++) {
+  		std::cout << ar[i];
+  	}
+  	//очищаем память от массива
+  	delete[] ar;
+  ```
