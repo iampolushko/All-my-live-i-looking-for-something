@@ -149,7 +149,7 @@ QT       += core gui network
     }
 ```
 
-#### Подключение
+#### Сигналы и слоты
 
 Сначала создадим два окна. Добавим на первое(FirstWindow) окно поле **lineEdit** и кнопку **pushButton** и создадим для неё clicked(). На второе(SecondWindow, но здесь это MainWindow потому что мне лень) добавим **label**
 ![](/c++/qt/resources/QTSignalsWindows.png)
@@ -279,3 +279,50 @@ void FirstWindow::on_pushButton_clicked()
     emit signalForSend(ui->lineEdit->text());
 }
 ```
+
+#### Css
+
+**Можно добавить двумя способами**
+
+- **Выбрав 'changeStyleSheat' в дизайнере для самой самого window**
+  Для задания стиля для всего типа элементов на странице, указываем назваение страницы
+
+        ```css
+        QPushButton {
+          background: rgb(0, 0, 0);
+        }
+        ```
+
+  Для задания стиля конкретного элемента нужно указать object name самого объекта
+
+  ```css
+  QPushButton#pushButton {
+    background: aqua;
+  }
+  ```
+
+- **Создав отдельный файл**
+  Для этого нажимаем на папку проекта, выбираем **add new**, выбираем **файл ресурсов qt**. Затем, после создания файла, мы нажимаем не него, выбираем пункт **add new** и добавляем пустой файл, указав расширение **.css**. В этом файле мы можем менять стиль для всего проекта, но сначала css нужно подключить в main.cpp.
+
+  ```c++
+  #include <QApplication>
+
+  #include <firstwindow.h>
+  #include <secondwindow.h>
+
+  #include <QFile>
+
+  int main(int argc, char *argv[])
+  {
+      QApplication a(argc, argv);
+
+      QFile file(":/style.css");
+      file.open(QFile::ReadOnly);
+      a.setStyleSheet(file.readAll());
+
+      FirstWindow w;
+      w.show();
+      return a.exec();
+  }
+
+  ```
