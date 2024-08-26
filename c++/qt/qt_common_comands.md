@@ -326,3 +326,44 @@ void FirstWindow::on_pushButton_clicked()
   }
 
   ```
+
+#### Serial port
+
+В файле **.pro** добавляем зависимость
+
+```c++
+QT       += core gui serialport
+```
+
+В заголовочном файле
+
+```c++
+#include <QSerialPort>
+#include <QSerialPortInfo>
+
+...
+
+private:
+    Ui::MainWindow *ui;
+    QSerialPort *serialPort;
+```
+
+В C++ файле
+
+```c++
+    serialPort = new QSerialPort();
+    serialPort->setPortName("COM1");
+    serialPort->setBaudRate(QSerialPort::Baud9600);
+    serialPort->setParity(QSerialPort::Parity::NoParity);
+    serialPort->setDataBits(QSerialPort::DataBits::Data8);
+    serialPort->setStopBits(QSerialPort::StopBits::OneStop);
+    serialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
+    serialPort->open(QIODevice::ReadWrite);
+
+    if(serialPort->isOpen()){
+        qDebug() << "Serial port is connected";
+        serialPort->write(); //put the byte array here
+    } else {
+        qDebug() << "Serial port is connected";
+    }
+```
