@@ -33,3 +33,14 @@ printf("You write a %d\n", number);
 ```
 
 in **first argument** we got the **%d** what mean the decimimanl integer will be outputed and \n
+
+### unions (объединения)
+
+```c
+union tag_value
+    {
+        int intValue;
+        float floatValue
+    } value;
+    unsigned storedType;
+```

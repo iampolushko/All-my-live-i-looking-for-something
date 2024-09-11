@@ -182,3 +182,137 @@ char number[2][4] = {"one", "two"};
   	//очищаем память от массива
   	delete[] ar;
   ```
+
+### classes
+
+- #### constuctors
+  Добавим в стандартный конструктор класса аргументы **int firstIntRef** и **int secondIntRef** и создадим публичные методы **returnSummOfConstrucorArgumentsMethod** **returnSummOfMethodArgumentsMethod(int firstIntRef, int secondIntRef)**
+
+```c++
+#ifndef TESTCLASSWITHCONSTRUCTOR_H
+#define TESTCLASSWITHCONSTRUCTOR_H
+
+class TestClassWithConstructor
+{
+public:
+    TestClassWithConstructor(int firstIntRef, int secondIntRef);
+
+    int returnSummOfConstrucorArgumentsMethod();
+    int returnSummOfMethodArgumentsMethod(int firstIntRef, int secondIntRef);
+
+private:
+    int firstIntRefInClass;
+    int secondIntRefInClass;
+};
+
+#endif // TESTCLASSWITHCONSTRUCTOR_H
+```
+
+Создадим реализацию всего того, что мы создали в header файле
+
+```c++
+#include "testclasswithconstructor.h"
+
+TestClassWithConstructor::TestClassWithConstructor(int firstIntRef, int secondIntRef)
+{
+    firstIntRefInClass = firstIntRef;
+    secondIntRefInClass = secondIntRef;
+}
+
+int TestClassWithConstructor::returnSummOfConstrucorArgumentsMethod()
+{
+    return firstIntRefInClass + secondIntRefInClass;
+}
+
+int TestClassWithConstructor::returnSummOfMethodArgumentsMethod(int firstIntRef, int secondIntRef)
+{
+    return firstIntRef + secondIntRef;
+}
+```
+
+Создадим экземляр класса, передав аргументы в конструктор и вызовем два его метода.
+
+```c++
+    TestClassWithConstructor testClassWithConstructor(10, 10);
+    qDebug() << testClassWithConstructor.returnSummOfConstrucorArgumentsMethod();
+    qDebug() << testClassWithConstructor.returnSummOfMethodArgumentsMethod(10, 10);
+    //В данном случае использутеся вывод в консоль при помощи QDebug, но можно использовать любой другой
+```
+
+- #### static classes
+  Создаем header файл для статичного класса
+
+```c++
+#ifndef TESTCLASSWITHCONSTRUCTOR_H
+#define TESTCLASSWITHCONSTRUCTOR_H
+
+class TestClassWithConstructor
+{
+public:
+
+    static int returnSummOfMethodArgumentsMethod(int firstIntRef, int secondIntRef);
+    static int publicIntRef;
+
+private:
+    static int privateIntRef;
+};
+
+#endif // TESTCLASSWITHCONSTRUCTOR_H
+```
+
+Создадим реализацию всего того, что мы создали в header файле
+
+```c++
+#include "testclasswithconstructor.h"
+
+int TestClassWithConstructor::returnSummOfMethodArgumentsMethod(int firstIntRef, int secondIntRef)
+{
+    return firstIntRef + secondIntRef;
+}
+
+```
+
+Вызовем методы из статичного класса
+
+```c++
+qDebug() << TestClassWithConstructor::returnSummOfMethodArgumentsMethod(10, 10);
+```
+
+### sturctures (структуры)
+
+Declaring the structure
+
+```c++
+struct person {   // Declare PERSON struct type
+    int age;   // Declare member types
+    bool gender;
+    float weight;
+};
+```
+
+Structure usage
+
+```c++
+    struct person sister;   // C style structure declaration
+    person brother;   // C++ style structure declaration
+    sister.age = 13;   // assign values to members
+    brother.age = 7;
+
+    qDebug() << sister.age; //output the data from structures(you can use any console output way)
+    qDebug() << brother.age;
+```
+
+also you can define a structures
+
+```c++
+struct person {   // Declare PERSON struct type
+    int age;   // Declare member types
+    bool gender;
+    float weight;
+} family_member;   // Define object of type PERSON
+```
+
+```c++
+    family_member.age = 10;
+    qDebug() << family_member.age;
+```
