@@ -316,3 +316,14 @@ struct person {   // Declare PERSON struct type
     family_member.age = 10;
     qDebug() << family_member.age;
 ```
+
+Можно создать структуры, где количество битов каждого member ограничено
+
+```c++
+struct declarationOnStructure{
+    int ref : 16;
+    char ref1Bit : 1;
+    char ref1bit2 : 1;
+
+}structureDefenition;
+```
