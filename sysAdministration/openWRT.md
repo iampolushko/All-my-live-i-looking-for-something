@@ -170,3 +170,8 @@ cp -a /mnt_ext4_old/. /mnt_ext4_new
 ```
 
 - reboot the routher and unplug you usb
+
+# Configure lan
+
+Go to the Network->Interfaces and open the list of Devices. Configure you br-lan device via adding to that you ethernet device(like eth2).
+After that you should add the new interface. In General Settings choose the protocol "Static Address" and write you device IP and choose mask for that. Open the Firewall Settings and add you network at same firewall zone as you lan. Push on the only flag in DHCP server.
