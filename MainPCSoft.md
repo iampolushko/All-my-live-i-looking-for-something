@@ -1,4 +1,4 @@
-#WEB/DESKTOP
+# WEB/DESKTOP
 ### pycharm
 ### android studio
 ### epic games UE
@@ -40,4 +40,5 @@ TODO Divede extensions by work specific
 
 # Browsers
 ### firefox
+600% sound, addblocker ultimate, clear URLs; Cookie autodelete, copy plain text, dark reader, return youtube dislike, save as PDF, tamper monkey, 
 ### Tor
