@@ -12,6 +12,8 @@ sudo apt update
 ```
 sudo apt upgrade -y
 ```
+#### nextcloud
+Если nextcloud установлен в стоке, то перейди в папку /var/snap/nextcloud/45728/nextcloud/config и укажи в config.php в trusted_domains ip адрес роутера
 
 ## After extend the disk space in ProxMox
 
