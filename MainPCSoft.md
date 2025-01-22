@@ -12,7 +12,7 @@
 ### postgresSQL + pgAdmin
 ### QTCreator
 
-#Multitools
+# Multitools
 ### VSСode
 Auto Rename Tag, С/C++,  Code runner, composer, css peek, Debugger for java, extension pack for java, gradle for java, maven for java, intelliCode, intelliCode API usage examples, intelli PHP, Language Support for Java by Red Hat, live server, Markdown Preview Enhanced, PHP, PHP Profiler, PlatformIO IDE, Prettier - Code formatter, project manager for java, blender development, python, python debugger, spring boot tools, svg preview, Test Runner for Java, c/c++ extension pack, c/c++ themes, cMake, cMake tools, gitHubActions, Wokwi simulator, Pylance
 TODO Divede extensions by work specific
@@ -20,7 +20,7 @@ TODO Divede extensions by work specific
 Community 2022: .net desktop development, .net multi platform app UI development, game development with unity, game development with c++, data science and analysis appearance
 Community 2018: game development with unity
 
-#3D
+# 3D
 ### 3ds max
 ### marmoset toolbag
 ### blender
