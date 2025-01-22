@@ -82,3 +82,15 @@ For start the stopped app
 ```
 sudo systemctl start 'service name'
 ```
+
+Change user
+
+```
+su - username
+```
+
+Delete user
+
+```
+sudo deluser --remove-home username
+```

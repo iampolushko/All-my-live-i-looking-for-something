@@ -1,6 +1,10 @@
 ### Commands
 
 Docker-compose logs “container name” – check container logs
+docker container prune - delete all stopped containers
+docker rmi IMAGE_ID - remove docker image
+docker rm CONTAINER_ID - remove docker container
+docker volume ls - list of the all volumes
 
 ### Idea stuff
 
