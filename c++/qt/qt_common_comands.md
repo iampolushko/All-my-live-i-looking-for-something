@@ -372,3 +372,35 @@ private:
 
 "
 TODO Сходи на работу и вспомни, как ты заставил это работать
+
+#### QTimer
+Что, если нам нужно менять UI раз в определенное время? Напишем для примера калькулятор:
+Header
+```c++
+#include <QTimer>
+...
+private slots:
+    void on_pushButton_clicked();
+    void on_updateTimer();
+private:
+    QTimer timer;
+...
+```
+Source (Window)
+```c++
+void MainWindow::on_pushButton_clicked()
+{
+    connect(&timer, SIGNAL(timeout()), this, SLOT(on_updateTimer()));
+    timer.setInterval(1000);
+    timer.start();
+}
+
+int increment;
+void MainWindow::on_updateTimer()
+{
+    increment += 1;
+    ui->label->setText(QString::number(increment));
+}
+```
+Как это выглядит:
+![alt text](resources/timer.png)
