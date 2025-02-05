@@ -375,7 +375,7 @@ TODO Сходи на работу и вспомни, как ты застави�
 
 #### QTimer
 Что, если нам нужно менять UI раз в определенное время? Напишем для примера калькулятор:
-Header
+* Header
 ```c++
 #include <QTimer>
 ...
@@ -386,7 +386,7 @@ private:
     QTimer timer;
 ...
 ```
-Source (Window)
+* Source (Window)
 ```c++
 void MainWindow::on_pushButton_clicked()
 {
@@ -402,5 +402,5 @@ void MainWindow::on_updateTimer()
     ui->label->setText(QString::number(increment));
 }
 ```
-Как это выглядит:
+* Как это выглядит:
 ![alt text](resources/timer.png)
