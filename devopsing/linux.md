@@ -51,24 +51,6 @@ For extend the disk with space what you add in ProxMox
    df-h
    ```
 
-# USB(cool way)
-//TODO Need to be extended and retested
-
-For dawload it use
-```
-opkg install usbutils
-```
-
-For device status us 
-```
-lsusb
-```
-It shows Raw USB device list, Bus/Device numbers, Vendor:Product IDs (e.g., 13d3:3273) Device names
-If you want to see USB port physical hierarchy by tree structure use
-```
-lsusb -t
-```
-it shows driver and in use(like rt2800usb), connection speeds (like 480M/5000M) and interface classes (like Class=Wireless)
 # Just usefull commands
 
 #### Show usb devices
