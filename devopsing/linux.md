@@ -72,10 +72,10 @@ Make user access for folder in admin directory.($USER — reference of user)
 ```
 sudo chown -R $USER:$USER /var/www/your_domain
 ```
-```
 For check is app active
 ```
 sudo systemctl is-active 'service name'
+```
 
 For check app status
 
