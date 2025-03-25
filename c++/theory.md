@@ -327,3 +327,6 @@ struct declarationOnStructure{
 
 }structureDefenition;
 ```
+
+### Tips
+ * Когда октрываешь старый проект, проверяй скольки битный должен быть сборщик(x32, x64, x86).
