@@ -51,6 +51,11 @@ For extend the disk with space what you add in ProxMox
    df-h
    ```
 
+# USB
+//TODO Need to be extended and retested
+
+
+
 # Just usefull commands
 
 #### Show usb devices
@@ -100,3 +105,7 @@ Delete user
 ```
 sudo deluser --remove-home username
 ```
+NextCloudAccess from web
+Зайди в  ```/var/snap/nextcloud/45728/nextcloud/config``` и укажи в config.php в trusted_domains ip адрес роутера
+
+
