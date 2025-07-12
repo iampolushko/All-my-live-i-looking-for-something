@@ -110,6 +110,7 @@ sudo deluser --remove-home username
 ``ps aux`` - все процессы
 
 
+Зайди в  ```/var/snap/nextcloud/45728/nextcloud/config``` и укажи в config.php в trusted_domains ip адрес роутера
 
 Если не заходит на жёсткий диск sdb1 с форматом ntfs, то:
 
