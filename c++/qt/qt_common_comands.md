@@ -352,7 +352,7 @@ private:
 Здесь представлена только запись
 ```c++
     serialPort = new QSerialPort();
-    serialPort->setPortName("COM1");
+    serialPort->setPortName("COM3");
     serialPort->setBaudRate(QSerialPort::Baud9600);
     serialPort->setParity(QSerialPort::Parity::NoParity);
     serialPort->setDataBits(QSerialPort::DataBits::Data8);
@@ -362,15 +362,45 @@ private:
 
     if(serialPort->isOpen()){
         qDebug() << "Serial port is connected";
-        serialPort->write(); //put the byte array here
+        serialPort->write("test"); //put the byte array here
     } else {
         qDebug() << "Serial port is connected";
     }
+    serialPort->clear();
+    serialPort->close();
 ```
 Чтение обычно выполняется либо в отдельном потоке, либо в бесконечном цикле(но он обычно стопорит весь UI)
-"
+Рассмотрим самый простой способ. Через сигнал readyRead. Чтение будем активировть нажатием на кнопку.
+```
+private slots:
+    void on_receivePushButton_clicked();
+    void on_serialReceived();
+```
+```c++
+void MainWindow::on_receivePushButton_clicked()
+{
+    serialPort = new QSerialPort();
+    serialPort->setPortName("COM3");
+    serialPort->setBaudRate(QSerialPort::Baud9600);
+    serialPort->setParity(QSerialPort::Parity::NoParity);
+    serialPort->setDataBits(QSerialPort::DataBits::Data8);
+    serialPort->setStopBits(QSerialPort::StopBits::OneStop);
+    serialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
+    serialPort->open(QIODevice::ReadWrite);
 
-"
+    connect(serialPort, SIGNAL(readyRead()), this, SLOT(on_serialReceived()));
+    //p.s. serialPort будет очень долго открыт в своём потоке и будет недоступен для остальной системы. Чтобы такого не было, его нужно закрыть через какое-нибудь время.
+
+}
+
+void MainWindow::on_serialReceived()
+{
+    qDebug() << serialPort->readAll();
+    serialPort->clear();
+    serialPort->close();
+}
+```
+
 TODO Сходи на работу и вспомни, как ты заставил это работать
 
 #### QTimer
