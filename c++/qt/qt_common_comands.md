@@ -381,12 +381,12 @@ void MainWindow::on_receivePushButton_clicked()
 {
     serialPort = new QSerialPort();
     serialPort->setPortName("COM3");
+    serialPort->open(QIODevice::ReadWrite);
     serialPort->setBaudRate(QSerialPort::Baud9600);
     serialPort->setParity(QSerialPort::Parity::NoParity);
     serialPort->setDataBits(QSerialPort::DataBits::Data8);
     serialPort->setStopBits(QSerialPort::StopBits::OneStop);
     serialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
-    serialPort->open(QIODevice::ReadWrite);
 
     connect(serialPort, SIGNAL(readyRead()), this, SLOT(on_serialReceived()));
     //p.s. serialPort будет очень долго открыт в своём потоке и будет недоступен для остальной системы. Чтобы такого не было, его нужно закрыть через какое-нибудь время.
