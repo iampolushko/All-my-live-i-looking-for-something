@@ -353,12 +353,12 @@ private:
 ```c++
     serialPort = new QSerialPort();
     serialPort->setPortName("COM3");
+    serialPort->open(QIODevice::ReadWrite);
     serialPort->setBaudRate(QSerialPort::Baud9600);
     serialPort->setParity(QSerialPort::Parity::NoParity);
     serialPort->setDataBits(QSerialPort::DataBits::Data8);
     serialPort->setStopBits(QSerialPort::StopBits::OneStop);
     serialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
-    serialPort->open(QIODevice::ReadWrite);
 
     if(serialPort->isOpen()){
         qDebug() << "Serial port is connected";
@@ -401,11 +401,16 @@ void MainWindow::on_serialReceived()
 }
 ```
 
-TODO Сходи на работу и вспомни, как ты заставил это работать
+TODO Нужно сильно больше инфы по чтению.
+
+#### FlowControl
+**HardwareControl** (RTS/CTS) - стандартный аппаратный контроль потока, который автоматически управляется Qt, не использует напрямую DTR/DSR для управления потоком, а использует сигналы RTS (Request to Send) и CTS (Clear to Send). 
+
+**NoFlowControl** - отсутствие автоматического контроля потока. Позволяет вручную управлять DTR/DSR через setDataTerminalReady() и pinoutSignals().
 
 #### QTimer
 Что, если нам нужно менять UI раз в определенное время? Напишем для примера калькулятор:
-* Header
+Header
 ```c++
 #include <QTimer>
 ...
@@ -416,7 +421,7 @@ private:
     QTimer timer;
 ...
 ```
-* Source (Window)
+Source (Window)
 ```c++
 void MainWindow::on_pushButton_clicked()
 {
@@ -432,5 +437,5 @@ void MainWindow::on_updateTimer()
     ui->label->setText(QString::number(increment));
 }
 ```
-* Как это выглядит:
+Как это выглядит:
 ![alt text](resources/timer.png)

@@ -100,9 +100,15 @@ Delete user
 ```
 sudo deluser --remove-home username
 ```
-NextCloudAccess from web
+**NextCloudAccess from web**
+Чтобы получить доступ к nextcloud из сети зайди в  ```/var/snap/nextcloud/45728/nextcloud/config``` и укажи в config.php в trusted_domains ip адрес роутера
 
-Зайди в  ```/var/snap/nextcloud/45728/nextcloud/config``` и укажи в config.php в trusted_domains ip адрес роутера
+Чтобы проверить, сколько памяти осталось на всех дисках на системе, можно написать команду ``df``. Чтобы проверить сколько конкретно осталось памяти на диске используем ``df -h 'название dev sda''``
+
+не проверенные команды(проверь их и убери эту пометку):
+
+``ps aux`` - все процессы
+
 
 
 Если не заходит на жёсткий диск sdb1 с форматом ntfs, то:
