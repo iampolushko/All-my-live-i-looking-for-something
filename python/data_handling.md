@@ -37,12 +37,61 @@ print(c.fetchone()) #get line
 db.close()
 ```
 
+## XLSX
+Открытие, просмотр, редактирование и сохранение файла
+```python
+import openpyxl
+
+book = openpyxl.load_workbook('testXLSX.xlsx')
+sheet = book.active
+
+print(sheet['A1'].value) #.value позволяет как взять, так и присвоить значение
+
+book.save('testXLSX.xlsx') # сохраняет активный файл
+```
+Создание файла
+
+```python
+import openpyxl
+
+wb = openpyxl.Workbook()
+ws = wb.active
+ws.title = "TestFromPy"
+
+#Первый способ добавлять данные
+ws['A1'] = 'Hello'
+ws['B1'] = 'World'
+
+#Второй способ добавлять данные
+data = [
+    ["test1", "test2"],
+    ["test3", "test4"],
+    ["test5", "test6"],
+]
+for row in data:
+    ws.append(row)
+
+wb.save("HelloWorld.xlsx")
+```
+
 ## tips
 
-- Получить уникальные значения массива
+- ### Получить уникальные значения массива
 
 ```python
 fruits = ['яблоко', 'груша', 'банан', 'яблоко', 'груша', 'яблоко']
 unique_fruits = list(set(fruits)) //set() возвращает словарь, но в целом его в list можно и не преобразововать
 print(unique_fruits)
+```
+
+- ### Подключение библиотек без интернета
+Когда интернет есть загружаем библиотеки в папку (например distrib)
+
+```python
+pip download -d "C:\Users\polushkohui\Desktop\distrib" openpyxl
+```
+
+Затем из этой папки мы можем подтягивать библиотеки в проект, когда интернета нет
+```python
+pip install --no-index -f "C:\Users\polushkohui\Desktop\distrib" openpyxl
 ```

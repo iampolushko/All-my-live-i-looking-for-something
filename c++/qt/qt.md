@@ -30,3 +30,9 @@ p.s. last
 #### Tips
 
 Check that: https://habr.com/ru/articles/270649/
+
+* Разница между .exec() и .show():
+
+    ``exec()`` → модальное окно (блокирует MainWindow, но есть только у QDialog)
+
+    ``show()`` → немодальное окно (можно работать с MainWindow параллельно)
