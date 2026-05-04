@@ -69,6 +69,10 @@
 </androidx.appcompat.widget.LinearLayoutCompat>
 ```
 
+Так это выглядит:
+
+![](/java/javaResourses/androidAppFragmentExample.png)
+
 ### 3. Изменение cpp файла для Activity, в котором будут отображаться фрагменты
 
 ```c++
