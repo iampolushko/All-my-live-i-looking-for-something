@@ -420,6 +420,284 @@ public class MainActivity extends AppCompatActivity {
 ![](/java/javaResourses/androidAppMenuExample.png)
 
 
+# Карты
+
+Будем использовать OSMdroid карты т.к. они бесплатные
+
+
+### 1. Добавим зависимости в build.gradle.kts (Module :app)
+
+```kts
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace = "com.example.osmdroidjavaapp"
+    compileSdk {
+        version = release(36) {
+            minorApiLevel = 1
+        }
+    }
+
+    defaultConfig {
+        applicationId = "com.example.osmdroidjavaapp"
+        minSdk = 23
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    // Добавлено: OSMDroid для работы с картами OpenStreetMap
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
+}
+```
+### 2. Добавим разрешения в AndroidManifest.xml
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!-- ===== Добавим эти разрешения для работы карт ===== -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- ================================= -->
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OsmDroidJavaApp">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+```
+
+### 3. Добавим в activity_main.xml карту и кнопку для определения местоположения
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:text="Показать местоположение" />
+
+</LinearLayout>
+```
+### 4. MainActivity.java, в котром функционал отображения карты, постоянной метки и функционал обратотки кнопки для определения местоположения
+
+```java
+package com.example.osmdroidjavaapp;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+
+public class MainActivity extends AppCompatActivity {
+
+    private static final int LOCATION_PERMISSION_REQUEST = 100;
+    private MapView mapView;
+    private Button locationButton;
+    private LocationManager locationManager;
+    private Marker currentLocationMarker; // для маркера текущего положения
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Инициализация конфигурации OSMDroid
+        Configuration.getInstance().load(
+                getApplicationContext(),
+                getSharedPreferences("osmdroid", MODE_PRIVATE)
+        );
+
+        setContentView(R.layout.activity_main);
+
+        mapView = findViewById(R.id.map_view);
+        locationButton = findViewById(R.id.btn_location);
+
+        setupMap();
+        setupLocationButton();
+
+        // Тестовый маркер (Красная площадь)
+        addMarker(56.317805, 44.000051, "Airsoft rus");
+
+        // Инициализация LocationManager
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    }
+
+    private void setupMap() {
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
+        mapView.setMultiTouchControls(true);
+        mapView.getController().setZoom(12.0);
+        mapView.getController().setCenter(new GeoPoint(55.751244, 37.618423));
+    }
+
+    private void setupLocationButton() {
+        locationButton.setOnClickListener(v -> {
+            // При нажатии проверяем разрешение и запрашиваем, если нужно
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        LOCATION_PERMISSION_REQUEST);
+            } else {
+                getMyLocation();
+            }
+        });
+    }
+
+    // Получение последнего известного местоположения
+    private void getMyLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (lastKnownLocation == null) {
+            lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
+        if (lastKnownLocation != null) {
+            updateMapToLocation(lastKnownLocation);
+        } else {
+            // Если нет последнего известного, запрашиваем обновление (один раз)
+            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    updateMapToLocation(location);
+                }
+
+                @Override
+                public void onProviderEnabled(@NonNull String provider) {}
+                @Override
+                public void onProviderDisabled(@NonNull String provider) {}
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {}
+            }, null);
+            Toast.makeText(this, "Запрос GPS... подождите", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateMapToLocation(Location location) {
+        GeoPoint userLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+        mapView.getController().setCenter(userLocation);
+        mapView.getController().setZoom(15.0);
+
+        // Удаляем старый маркер местоположения, если есть
+        if (currentLocationMarker != null) {
+            mapView.getOverlays().remove(currentLocationMarker);
+        }
+
+        currentLocationMarker = new Marker(mapView);
+        currentLocationMarker.setPosition(userLocation);
+        currentLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        currentLocationMarker.setTitle("Вы здесь");
+        currentLocationMarker.setIcon(ContextCompat.getDrawable(this, android.R.drawable.ic_menu_mylocation));
+        mapView.getOverlays().add(currentLocationMarker);
+        mapView.invalidate();
+
+        Toast.makeText(this, "Широта: " + location.getLatitude() + "\nДолгота: " + location.getLongitude(),
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getMyLocation();
+            } else {
+                Toast.makeText(this, "Разрешение не получено", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void addMarker(double latitude, double longitude, String title) {
+        Marker marker = new Marker(mapView);
+        marker.setPosition(new GeoPoint(latitude, longitude));
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setTitle(title);
+        marker.setIcon(ContextCompat.getDrawable(this, android.R.drawable.star_on));
+        mapView.getOverlays().add(marker);
+        mapView.invalidate();
+    }
+}
+```
 
 
 
